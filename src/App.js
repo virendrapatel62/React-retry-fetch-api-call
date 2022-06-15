@@ -6,19 +6,21 @@ export default function App() {
   const [data, setData] = React.useState(null);
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
+    fetch('https://jsonplaceholder.typicode.com/posts--')
       .then((response) => {
         if (response.ok) return response.json();
         throw response;
       })
       .then((data) => setData(data))
-      .catch((error) => retryCount < 3 && setRetryCount(retryCount + 1));
+      .catch((error) => {
+        retryCount < 3 && setRetryCount(retryCount + 1);
+      });
   }, [retryCount]);
 
   return (
     <div>
-      <h1>Hello StackBlitz!</h1>
-      <p>Start editing to see some magic happen :)</p>
+      <h1>Retry Count : {retryCount}</h1>
+      <p>{JSON.stringify(data)}</p>
     </div>
   );
 }
